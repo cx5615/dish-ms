@@ -1,0 +1,102 @@
+1. Chef APIs
+1.1 Create Chef
+POST http://localhost:3000/api/chefs HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Chef John",
+  "username": "ChefTracy",
+  "password": "123456"
+}
+
+1.2 Update Chef
+PUT http://localhost:3000/api/chefs/1 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Chef John Updated"
+}
+
+1.3 Get all Chefs
+GET http://localhost:3000/api/chefs?current=1&pageSize=10&search=Tim HTTP/1.1
+
+1.4 Get a Chef by ID
+GET http://localhost:3000/api/chefs/1 HTTP/1.1
+
+1.5 Login
+POST http://localhost:3000/api/chefs/login HTTP/1.1
+content-type: application/json
+
+{
+  "username": "ChefJohn",
+  "password": "123456"
+}
+
+2. Ingredient APIs
+2.1 Create Ingredient
+POST http://localhost:3000/api/ingredients HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Rice",
+  "unit": "g"
+}
+
+2.2 Update Ingredient
+PUT http://localhost:3000/api/ingredients/1 HTTP/1.1
+content-type: application/json
+
+{
+  "name": "Brown Rice"
+}
+
+2.3 Get all Ingredient
+GET http://localhost:3000/api/ingredients HTTP/1.1
+
+2.4 Get a Ingredient by ID
+GET http://localhost:3000/api/ingredients/1 HTTP/1.1
+
+3. Dish APIs
+3.1 Create a Dish
+POST http://localhost:3000/api/dishes HTTP/1.1
+content-type: application/json
+X-Chef-Id: 1
+
+{
+  "name": "Signature Fried Rice",
+  "ingredients": [
+    {
+      "ingredientId": 1,
+      "ingredientAmount": 30.5
+    },
+    {
+      "ingredientId": 2,
+      "ingredientAmount": 40.2
+    },
+    {
+      "ingredientId": 3,
+      "ingredientAmount": 29.3
+    }
+  ]
+}
+
+3.2 Update Dish_Ingredients
+PUT http://localhost:3000/api/dishes/1/ingredients HTTP/1.1
+content-type: application/json
+X-Chef-Id: 2
+
+{
+    "ingredients": [
+      {"ingredientId": 1, "ingredientAmount": 30.5},
+      {"ingredientId": 2, "ingredientAmount": 30.3},
+      {"ingredientId": 3, "ingredientAmount": 39.2}
+    ]
+}
+
+3.3 Get Dish with Ingredients Amount details
+GET http://localhost:3000/api/dishes/3/ingredients HTTP/1.1
+
+3.4 Get Dish Ingredient Histories
+GET http://localhost:3000/api/dishes/3/ingredients/history HTTP/1.1
+
+

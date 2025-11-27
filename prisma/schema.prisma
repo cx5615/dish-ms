@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model chef {
+  id        Int      @id @default(autoincrement())
+  name      String
+  username  String   @unique(map: "Chef_username_key")
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  dish      dish[]
+}
+
+model dish {
+  id             Int              @id @default(autoincrement())
+  chefId         Int
+  name           String
+  versionNumber  Int              @default(1)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  chef           chef             @relation(fields: [chefId], references: [id], onDelete: Cascade, map: "Dish_chefId_fkey")
+  dishingredient dishingredient[]
+
+  @@unique([chefId, name], map: "Dish_chefId_name_key")
+  @@index([chefId], map: "Dish_chefId_idx")
+}
+
+model dishingredient {
+  id               Int        @id @default(autoincrement())
+  dishId           Int
+  ingredientId     Int
+  ingredientAmount Float
+  versionNumber    Int
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime
+  dish             dish       @relation(fields: [dishId], references: [id], onDelete: Cascade, map: "DishIngredient_dishId_fkey")
+  ingredient       ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade, map: "DishIngredient_ingredientId_fkey")
+
+  @@unique([dishId, ingredientId, versionNumber], map: "DishIngredient_dishId_ingredientId_versionNumber_key")
+  @@index([dishId], map: "DishIngredient_dishId_idx")
+  @@index([dishId, versionNumber], map: "DishIngredient_dishId_versionNumber_idx")
+  @@index([ingredientId], map: "DishIngredient_ingredientId_idx")
+}
+
+model ingredient {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique(map: "Ingredient_name_key")
+  createdAt      DateTime         @default(now())
+  unit           String           @default("unit")
+  updatedAt      DateTime
+  dishingredient dishingredient[]
+}
