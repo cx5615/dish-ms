@@ -22,6 +22,7 @@ import {
   EditOutlined,
   HistoryOutlined,
   DeleteOutlined,
+  ClockCircleOutlined,
 } from "@ant-design/icons";
 import {
   dishApi,
@@ -507,24 +508,22 @@ export default function DishesPage() {
           setHistoryPagination({ current: 1, pageSize: 10, total: 0 });
         }}
         open={historyVisible}
-        width={600}
+        size={600}
       >
-        <Timeline>
-          {history.map((version, index) => (
-            <Timeline.Item key={index} color="blue">
-              <div>
-                <Tag color="blue">Version {version.versionNumber}</Tag>
-              </div>
-              <div style={{ marginTop: 8 }}>
-                {version.ingredients.map((ing, idx) => (
-                  <div key={idx} style={{ marginLeft: 24, marginTop: 4 }}>
-                    {ing.ingredientName} - {ing.ingredientAmount}{" "}
-                    {ing.ingredientUnit}
-                  </div>
-                ))}
-              </div>
-            </Timeline.Item>
-          ))}
+        <Timeline
+          items={history.map((version, index) => {
+            // return {content : `${ing.ingredientName} - ${ing.ingredientAmount} ${ing.ingredientUnit}`};
+            return {
+              title: `Version ${version.versionNumber}`,
+              icon: index === 0 ? <ClockCircleOutlined style={{ fontSize: '16px' }} /> : null,
+              content: version.ingredients
+                .map((ing) => {
+                  return `${ing.ingredientName} - ${ing.ingredientAmount} ${ing.ingredientUnit}`;
+                })
+                .join(", "),
+            };
+          })}
+        >
         </Timeline>
         {historyPagination.total > 0 && (
           <div style={{ marginTop: 24, textAlign: "center" }}>
