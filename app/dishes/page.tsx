@@ -437,21 +437,14 @@ export default function DishesPage() {
                       <Select
                         placeholder="Select ingredient"
                         style={{ width: 200 }}
-                        showSearch
-                        filterOption={(input, option) =>
-                          (option?.children
-                            ? (option?.children[0] as string)
-                            : ""
-                          )
-                            ?.toLowerCase()
-                            .includes(input.toLowerCase())
-                        }
+                        showSearch={{ optionFilterProp: "label" }}
+                        options={ingredients.map((ing) => {
+                          return {
+                            label: `${ing.name} (${ing.unit})`,
+                            value: ing.id,
+                          };
+                        })}
                       >
-                        {ingredients.map((ing) => (
-                          <Option key={ing.id} value={ing.id}>
-                            {ing.name} ({ing.unit})
-                          </Option>
-                        ))}
                       </Select>
                     </Form.Item>
                     <Form.Item
@@ -515,7 +508,10 @@ export default function DishesPage() {
             // return {content : `${ing.ingredientName} - ${ing.ingredientAmount} ${ing.ingredientUnit}`};
             return {
               title: `Version ${version.versionNumber}`,
-              icon: index === 0 ? <ClockCircleOutlined style={{ fontSize: '16px' }} /> : null,
+              icon:
+                index === 0 ? (
+                  <ClockCircleOutlined style={{ fontSize: "16px" }} />
+                ) : null,
               content: version.ingredients
                 .map((ing) => {
                   return `${ing.ingredientName} - ${ing.ingredientAmount} ${ing.ingredientUnit}`;
@@ -523,8 +519,7 @@ export default function DishesPage() {
                 .join(", "),
             };
           })}
-        >
-        </Timeline>
+        ></Timeline>
         {historyPagination.total > 0 && (
           <div style={{ marginTop: 24, textAlign: "center" }}>
             <Pagination
