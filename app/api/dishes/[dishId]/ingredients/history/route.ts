@@ -81,6 +81,7 @@ export async function GET(
     let bucket: Array<{
       ingredientId: number;
       ingredientName: string;
+      ingredientUnit: string;
       ingredientAmount: number;
     }> = [];
 
