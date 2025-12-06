@@ -56,7 +56,7 @@
 我们在食材表中已经记录了食材的单位，所以在页面上可以直接读取相应食材的单位并显示在配置表页面上。
 
 ## 3.2 Prisma ORM（对象关系模型）
-当我使用Cursor实现接口时，它自动就选用了[Prisma](https://github.com/prisma/prisma)作为ORM，所以没有为什么是Prisma的问题。我只管去学习了解它。
+当我使用Cursor实现接口时，它自动就选用了[Prisma](https://github.com/prisma/prisma)作为ORM。所以没有为什么是Prisma的问题，我只管去学习了解它。
 
 ### 3.2.1 安装Prisma依赖包
 安装`@prisma/client`和`prisma`两个依赖包。
@@ -67,6 +67,8 @@ npm i @prisma/client prisma -S
 `-S`选项是`--save`的缩写，会将依赖包添加到`package.json`的`dependencies`小节中。
 
 如果想把依赖包记录到`devDependencies`中可以用`-D`或`--save-dev`选项。
+
+dependencies和devDependencies的区别，大家可以自行搜索了解一下。
 
 node.js的依赖包会安装在项目目录下的node_modules目录下。
 
@@ -98,6 +100,8 @@ node.js的依赖包会安装在项目目录下的node_modules目录下。
 2. **npm start**: 运行package.json中定义的start脚本，一般用于启动项目。`start`是默认命令，所以可以不加`run`也可以加。
 3. **npm run dev**: dev命令和start命令一般是相同或者配对的，有些项目会把start命令用于运行编译后的文件，例如dist或.next目录；然后dev命令就是以开发模式直接运行项目，可以配置修改文件之后立即生效，这样就可以一边编程一边开效果。有些项目不需要运行编译后的文件可能不会定义dev命令，或者将start命令也指向dev命令。
 4. **npm run build**: 运行package.json中定义的build脚本，一般是用于编译项目。
+
+如果是第一次运行`npm i`或`npm install`，系统还会生成一个package-lock.json文件，这个文件就是把我们安装的包的具体版本记录下来，没有~或^通配符，这是为了避免安装新版本的包带来兼容性问题。所以package-lock.json文件是推荐上传到代码仓库的，下次再checkout代码如果有了这个文件就不会再依据package.json里面的通配符去安装更新的版本，而是根据这个文件直接安装完全一致的版本。
 
 ### 3.2.3 数据库连接字符串
 在项目根目录下创建一个`.env`文件并添加数据库连接字符串，文本内容如下：

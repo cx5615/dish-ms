@@ -239,7 +239,7 @@ export default function DishesPage() {
       title: "Dish Name",
       dataIndex: "name",
       key: "name",
-      width: 120,
+      width: 180,
     },
     {
       title: "Chef",

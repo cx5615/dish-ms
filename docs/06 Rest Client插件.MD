@@ -24,7 +24,7 @@ Rest Client插件的主页就有样例如何编写请求信息。
 GET http://localhost:3000/api/chefs?current=2&pageSize=2 HTTP/1.1
 ```
 
-选中请求信息，右键会有一个"Send Request"选项（只有扩展名为.http或着新创建的还没命名的文件才会有这个选项）。选中该选项发送请求，会在右侧打开一个新的窗口显示Response数据。
+选中请求信息，右键会有一个"Send Request"选项（只有扩展名为.http或着新创建的还没命名的文件且选中内容为网络请求才会有这个选项）。选中该选项发送请求，会在右侧打开一个新的窗口显示Response数据。
 
 ```
 HTTP/1.1 200 OK
